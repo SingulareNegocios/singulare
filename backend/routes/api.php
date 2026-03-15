@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Controllers\CompanyInformationController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', function (Request $request) {
@@ -15,6 +16,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum', 'can:admin'])->group(function () {
     Route::apiResource('/users', UserController::class);
 });
+
+Route::get('/companyinformation', [CompanyInformationController::class, 'index']);
+Route::put('/companyinformation/{id}', [CompanyInformationController::class, 'update']);
 
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
