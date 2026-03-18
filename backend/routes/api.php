@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
-use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +14,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'can:admin'])->group(function () {
-    Route::apiResource('/services', Service::class)->except('index', 'show');
+    Route::apiResource('/services', ServiceController::class)->except('index', 'show');
     Route::apiResource('/users', UserController::class);
 
 });
@@ -22,8 +22,8 @@ Route::middleware(['auth:sanctum', 'can:admin'])->group(function () {
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
-Route::get('/services', [Service::class, 'index'] );
-Route::get('/services/{id}', [Service::class, 'show'] );
+Route::get('/services', [ServiceController::class, 'index'] );
+Route::get('/services/{id}', [ServiceController::class, 'show'] );
 
 
 require __DIR__.'/auth.php';

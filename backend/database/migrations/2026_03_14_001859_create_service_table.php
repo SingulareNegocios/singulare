@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('image');
-            $table->text('text');
+            $table->text('title');
             $table->text('content');
             $table->timestamps();
         });

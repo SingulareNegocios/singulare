@@ -18,7 +18,7 @@ class ServiceFactory extends Factory
     {
         return [
             'image' => $this->faker->imageUrl(),
-            'text' => $this->faker->text(80),
+            'title' => $this->faker->text(80),
             'content' => $this->faker->text(500),
 
         ];
