@@ -58,12 +58,6 @@ export default async function ListBanners({
     <>
       <DashboardContainer className="flex h-min justify-between space-x-0 gap-y-2.5 max-sm:flex-col">
         <FilterBanners text={text} />
-        <DialogCreateBanner>
-          <Button size="sm">
-            <LuPlusCircle />
-            Novo banner
-          </Button>
-        </DialogCreateBanner>
       </DashboardContainer>
       <DashboardContainer>
         <Table>

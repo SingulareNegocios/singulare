@@ -24,7 +24,7 @@ export default async function Page({
           Banners
         </DashboardHeaderTitle>
         <DashboardHeaderDescription>
-          Cadastre, edite e visualize banners.
+          Edite e visualize banners.
         </DashboardHeaderDescription>
       </DashboardHeader>
       <DashboardMain>

@@ -18,7 +18,6 @@ export function SkeletonBanners() {
     <>
       <DashboardContainer className="flex h-min justify-between space-x-0 gap-y-2.5 max-sm:flex-col">
         <Skeleton className="h-8 w-24" />
-        <Skeleton className="h-8 w-36" />
       </DashboardContainer>
       <DashboardContainer>
         <Table>
@@ -46,7 +45,6 @@ export function SkeletonBanners() {
                     <Skeleton className="h-6 w-full" />
                   </TableCell>
                   <TableCell className="flex justify-end gap-2">
-                    <Skeleton className="size-9" />
                     <Skeleton className="size-9" />
                     <Skeleton className="size-9" />
                   </TableCell>
