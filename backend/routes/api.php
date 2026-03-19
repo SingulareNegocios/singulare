@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MyHistoryController;
 use App\Http\Controllers\UserController;
 use App\Models\MyHistory;
 use Illuminate\Http\Request;
@@ -15,14 +16,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::middleware(['auth:sanctum', 'can:admin'])->group(function () {
     Route::apiResource('/users', UserController::class);
-    Route::apiResource('/my-history', MyHistory::class)->except('index', 'show');
+    Route::apiResource('/my-histories', MyHistoryController::class)->except('index', 'show');
 });
 
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
-Route::get('/my-history', [MyHistory::class, 'index'] );
-Route::get('/my-history/{id}', [MyHistory::class, 'show'] );
+Route::get('/my-histories', [MyHistoryController::class, 'index'] );
+Route::get('/my-histories/{id}', [MyHistoryController::class, 'show'] );
 
 require __DIR__.'/auth.php';
