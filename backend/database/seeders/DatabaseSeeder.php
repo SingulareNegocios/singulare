@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\LinkWpp;
 use App\Models\User;
+use App\Models\CompanyInformation;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -22,5 +23,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
         $user->assignPermission('admin');
+
+        CompanyInformation::factory(1)->create();
     }
 }

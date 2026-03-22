@@ -11,7 +11,7 @@ import {
   SidebarHeaderLogo,
   UserDropdown,
 } from '@/components/dashboard/sidebar'
-import { LuHome, LuLogOut, LuUsers } from 'react-icons/lu'
+import { LuHome, LuLogOut, LuMessageCircle, LuMail, LuUsers, LuContact } from 'react-icons/lu'
 import { DropdownMenuItem } from '@/components/dropdown-menu'
 import { signOut, useSession } from 'next-auth/react'
 import logo from '@/assets/img/logo.jpeg'
@@ -36,9 +36,25 @@ export function SidebarMain() {
           <LuUsers />
           <SidebarNavLinkLabel>Usuários</SidebarNavLinkLabel>
         </SidebarNavLink>
+        <SidebarNavLink href="/admin/contatos">
+          <LuMail />
+          <SidebarNavLinkLabel>Contatos</SidebarNavLinkLabel>
+        </SidebarNavLink>
+        <SidebarNavLink href="/admin/faq">
+          <LuMessageCircle />
+          <SidebarNavLinkLabel>FAQs</SidebarNavLinkLabel>
+        </SidebarNavLink>
+        <SidebarNavLink href="/admin/feedbacks">
+           <LuMessageCircle />
+           <SidebarNavLinkLabel>Feedbacks</SidebarNavLinkLabel>
+        </SidebarNavLink>
+         <SidebarNavLink href="/admin/informacoesdaempresa">
+          <LuContact  />
+          <SidebarNavLinkLabel>Informações da empresa</SidebarNavLinkLabel>
+        </SidebarNavLink>
         <SidebarNavLink href="/admin/link-wpp">
           <FaWhatsapp />
-          <SidebarNavLinkLabel>Links WhatsApp</SidebarNavLinkLabel>
+          <SidebarNavLinkLabel>Link WhatsApp</SidebarNavLinkLabel>
         </SidebarNavLink>
       </SidebarNav>
       <SidebarFooter>
