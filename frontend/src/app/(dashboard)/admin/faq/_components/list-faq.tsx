@@ -1,7 +1,6 @@
 import { DashboardContainer } from '@/components/dashboard/dashboard-items'
 import { Pagination } from '@/components/dashboard/pagination'
 import {
-  TabbleCellImage,
   Table,
   TableBody,
   TableCaption,
@@ -12,38 +11,33 @@ import {
 } from '@/components/dashboard/table'
 import { api } from '@/services/api'
 import { paginationResponseType } from '@/types/pagination-response'
-import { serviceType } from '@/types/service'
 import { Button } from '@/components/button'
 import { LuInfo, LuPen, LuPlusCircle, LuTrash } from 'react-icons/lu'
-import { DialogUpdateService } from './dialog-update-service'
-import { DialogServiceDelete } from './dialog-delete-service'
-import { DialogInformationService } from './dialog-information-service'
+import { DialogUpdateFaq } from './dialog-update-faq'
+import { DialogFaqDelete } from './dialog-delete-faq'
+import { DialogInformationFaq } from './dialog-information-faq'
 import { PerPage } from '@/components/dashboard/per_page'
-import { DialogCreateService } from './dialog-create-service'
-import { FilterServices } from './filter-services'
+import { DialogCreateFaq } from './dialog-create-faq'
+import {  faqType} from '@/types/faq'
 
-interface ListServicesProps {
+
+
+interface ListFaqsProps {
   page?: number
   perPage?: number
-  title?: string
-  content?: string
 }
 
-export default async function ListServices({
+export default async function ListFaqs({
   page,
   perPage,
-  title,
-  content,
-}: ListServicesProps) {
-  const { response } = await api<paginationResponseType<serviceType[]>>(
+}: ListFaqsProps) {
+  const { response } = await api<paginationResponseType<faqType[]>>(
     'GET',
-    '/services',
+    '/faq',
     {
       params: {
         page,
         per_page: perPage,
-        title,
-        content,
       },
     },
   )
@@ -51,67 +45,71 @@ export default async function ListServices({
   if (!response) {
     return (
       <DashboardContainer className="text-destructive">
-        Não foi possível obter os serviços.
+        Não foi possível obter as FAQs.
       </DashboardContainer>
     )
   }
 
-  const services: serviceType[] = response?.data
+  const faqs: faqType[] = response.data
 
   return (
     <>
-      <DashboardContainer className="flex h-min justify-between space-x-0 gap-y-2.5 max-sm:flex-col">
-        
-        <DialogCreateService>
+      <DashboardContainer className="flex h-min justify-end">
+        <DialogCreateFaq>
           <Button size="sm">
             <LuPlusCircle />
-            Novo serviço
+            Nova FAQ
           </Button>
-        </DialogCreateService>
+        </DialogCreateFaq>
       </DashboardContainer>
+
       <DashboardContainer>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Imagem</TableHead>
-              <TableHead>Título</TableHead>
+              <TableHead>Pergunta</TableHead>
+              <TableHead>Resposta</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
+
           <TableBody>
-            {services?.map((service: serviceType) => (
-              <TableRow key={service.id}>
-                <TableCell>
-                  <TabbleCellImage src={service.image} />
+            {faqs?.map((faq: faqType) => (
+              <TableRow key={faq.id}>
+                <TableCell>{faq.question}</TableCell>
+                <TableCell className="max-w-[400px] truncate">
+                  {faq.answer}
                 </TableCell>
 
-                <TableCell>{service.title}</TableCell>
-
                 <TableCell className="flex justify-end gap-2">
-                  <DialogInformationService id={service.id}>
+                  <DialogInformationFaq id={faq.id as string}>
                     <Button variant="default-inverse" size="icon">
                       <LuInfo />
                     </Button>
-                  </DialogInformationService>
-                  <DialogUpdateService id={service.id}>
+                  </DialogInformationFaq>
+
+                  <DialogUpdateFaq id={faq.id as string}>
                     <Button variant="secondary-inverse" size="icon">
                       <LuPen />
                     </Button>
-                  </DialogUpdateService>
-                  <DialogServiceDelete id={service.id}>
+                  </DialogUpdateFaq>
+
+                  <DialogFaqDelete id={faq.id as string}>
                     <Button variant="destructive-inverse" size="icon">
                       <LuTrash />
                     </Button>
-                  </DialogServiceDelete>
+                  </DialogFaqDelete>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
-          {!services?.length && (
-            <TableCaption> Nenhum serviço encontrado.</TableCaption>
+
+          {!faqs.length && (
+            <TableCaption>Nenhuma FAQ encontrada.</TableCaption>
           )}
         </Table>
       </DashboardContainer>
+
       <DashboardContainer className="flex justify-between space-x-0 gap-y-2.5 max-sm:flex-col max-sm:items-center">
         <PerPage total={response.total} />
         <Pagination lastPage={response.last_page} />

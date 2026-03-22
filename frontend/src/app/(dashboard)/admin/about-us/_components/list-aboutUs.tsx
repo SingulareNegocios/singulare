@@ -12,38 +12,34 @@ import {
 } from '@/components/dashboard/table'
 import { api } from '@/services/api'
 import { paginationResponseType } from '@/types/pagination-response'
-import { serviceType } from '@/types/service'
+import { aboutUsType } from '@/types/aboutUs'
 import { Button } from '@/components/button'
 import { LuInfo, LuPen, LuPlusCircle, LuTrash } from 'react-icons/lu'
-import { DialogUpdateService } from './dialog-update-service'
-import { DialogServiceDelete } from './dialog-delete-service'
-import { DialogInformationService } from './dialog-information-service'
+import { DialogUpdateAboutUs } from './dialog-update-aboutUs'
+import { DialogInformationAboutUs } from './dialog-information-aboutUs'
 import { PerPage } from '@/components/dashboard/per_page'
-import { DialogCreateService } from './dialog-create-service'
-import { FilterServices } from './filter-services'
+import { DialogCreateAboutUs } from './dialog-create-aboutUs'
+import { FilterAboutUs } from './filter-aboutUs'
 
-interface ListServicesProps {
+interface ListAboutUsProps {
   page?: number
   perPage?: number
-  title?: string
-  content?: string
+  text?: string
 }
 
-export default async function ListServices({
+export default async function ListAboutUs({
   page,
   perPage,
-  title,
-  content,
-}: ListServicesProps) {
-  const { response } = await api<paginationResponseType<serviceType[]>>(
+  text,
+}: ListAboutUsProps) {
+  const { response } = await api<paginationResponseType<aboutUsType[]>>(
     'GET',
-    '/services',
+    '/about-us',
     {
       params: {
         page,
         per_page: perPage,
-        title,
-        content,
+        text,
       },
     },
   )
@@ -51,64 +47,51 @@ export default async function ListServices({
   if (!response) {
     return (
       <DashboardContainer className="text-destructive">
-        Não foi possível obter os serviços.
+        Não foi possível obter os sobre nós.
       </DashboardContainer>
     )
   }
 
-  const services: serviceType[] = response?.data
+  const aboutUs: aboutUsType[] = response?.data
 
   return (
     <>
-      <DashboardContainer className="flex h-min justify-between space-x-0 gap-y-2.5 max-sm:flex-col">
-        
-        <DialogCreateService>
-          <Button size="sm">
-            <LuPlusCircle />
-            Novo serviço
-          </Button>
-        </DialogCreateService>
-      </DashboardContainer>
+    
       <DashboardContainer>
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Imagem</TableHead>
-              <TableHead>Título</TableHead>
+              <TableHead>Texto</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {services?.map((service: serviceType) => (
-              <TableRow key={service.id}>
+            {aboutUs?.map((aboutUsItem: aboutUsType) => (
+              <TableRow key={aboutUsItem.id}>
                 <TableCell>
-                  <TabbleCellImage src={service.image} />
+                  <TabbleCellImage src={aboutUsItem.image} />
                 </TableCell>
 
-                <TableCell>{service.title}</TableCell>
+                <TableCell>{aboutUsItem.text}</TableCell>
 
                 <TableCell className="flex justify-end gap-2">
-                  <DialogInformationService id={service.id}>
+                  <DialogInformationAboutUs id={aboutUsItem.id}>
                     <Button variant="default-inverse" size="icon">
                       <LuInfo />
                     </Button>
-                  </DialogInformationService>
-                  <DialogUpdateService id={service.id}>
+                  </DialogInformationAboutUs>
+                  <DialogUpdateAboutUs id={aboutUsItem.id}>
                     <Button variant="secondary-inverse" size="icon">
                       <LuPen />
                     </Button>
-                  </DialogUpdateService>
-                  <DialogServiceDelete id={service.id}>
-                    <Button variant="destructive-inverse" size="icon">
-                      <LuTrash />
-                    </Button>
-                  </DialogServiceDelete>
+                  </DialogUpdateAboutUs>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
-          {!services?.length && (
-            <TableCaption> Nenhum serviço encontrado.</TableCaption>
+          {!aboutUs?.length && (
+            <TableCaption> Nenhum sobre nós encontrado.</TableCaption>
           )}
         </Table>
       </DashboardContainer>

@@ -12,38 +12,34 @@ import {
 } from '@/components/dashboard/table'
 import { api } from '@/services/api'
 import { paginationResponseType } from '@/types/pagination-response'
-import { serviceType } from '@/types/service'
+import { bannerType } from '@/types/banner'
 import { Button } from '@/components/button'
 import { LuInfo, LuPen, LuPlusCircle, LuTrash } from 'react-icons/lu'
-import { DialogUpdateService } from './dialog-update-service'
-import { DialogServiceDelete } from './dialog-delete-service'
-import { DialogInformationService } from './dialog-information-service'
+import { DialogUpdateBanner } from './dialog-update-banner'
+import { DialogInformationBanner } from './dialog-information-banner'
 import { PerPage } from '@/components/dashboard/per_page'
-import { DialogCreateService } from './dialog-create-service'
-import { FilterServices } from './filter-services'
+import { DialogCreateBanner } from './dialog-create-banner'
+import { FilterBanners } from './filter-banners'
 
-interface ListServicesProps {
+interface ListBannersProps {
   page?: number
   perPage?: number
-  title?: string
-  content?: string
+  text?: string
 }
 
-export default async function ListServices({
+export default async function ListBanners({
   page,
   perPage,
-  title,
-  content,
-}: ListServicesProps) {
-  const { response } = await api<paginationResponseType<serviceType[]>>(
+  text,
+}: ListBannersProps) {
+  const { response } = await api<paginationResponseType<bannerType[]>>(
     'GET',
-    '/services',
+    '/banners',
     {
       params: {
         page,
         per_page: perPage,
-        title,
-        content,
+        text,
       },
     },
   )
@@ -51,64 +47,51 @@ export default async function ListServices({
   if (!response) {
     return (
       <DashboardContainer className="text-destructive">
-        Não foi possível obter os serviços.
+        Não foi possível obter os banners.
       </DashboardContainer>
     )
   }
 
-  const services: serviceType[] = response?.data
+  const banners: bannerType[] = response?.data
 
   return (
     <>
-      <DashboardContainer className="flex h-min justify-between space-x-0 gap-y-2.5 max-sm:flex-col">
-        
-        <DialogCreateService>
-          <Button size="sm">
-            <LuPlusCircle />
-            Novo serviço
-          </Button>
-        </DialogCreateService>
-      </DashboardContainer>
+     
       <DashboardContainer>
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Imagem</TableHead>
-              <TableHead>Título</TableHead>
+              <TableHead>Texto</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {services?.map((service: serviceType) => (
-              <TableRow key={service.id}>
+            {banners?.map((banner: bannerType) => (
+              <TableRow key={banner.id}>
                 <TableCell>
-                  <TabbleCellImage src={service.image} />
+                  <TabbleCellImage src={banner.image} />
                 </TableCell>
 
-                <TableCell>{service.title}</TableCell>
+                <TableCell>{banner.text}</TableCell>
 
                 <TableCell className="flex justify-end gap-2">
-                  <DialogInformationService id={service.id}>
+                  <DialogInformationBanner id={banner.id}>
                     <Button variant="default-inverse" size="icon">
                       <LuInfo />
                     </Button>
-                  </DialogInformationService>
-                  <DialogUpdateService id={service.id}>
+                  </DialogInformationBanner>
+                  <DialogUpdateBanner id={banner.id}>
                     <Button variant="secondary-inverse" size="icon">
                       <LuPen />
                     </Button>
-                  </DialogUpdateService>
-                  <DialogServiceDelete id={service.id}>
-                    <Button variant="destructive-inverse" size="icon">
-                      <LuTrash />
-                    </Button>
-                  </DialogServiceDelete>
+                  </DialogUpdateBanner>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
-          {!services?.length && (
-            <TableCaption> Nenhum serviço encontrado.</TableCaption>
+          {!banners?.length && (
+            <TableCaption> Nenhum banner encontrado.</TableCaption>
           )}
         </Table>
       </DashboardContainer>

@@ -12,38 +12,35 @@ import {
 } from '@/components/dashboard/table'
 import { api } from '@/services/api'
 import { paginationResponseType } from '@/types/pagination-response'
-import { serviceType } from '@/types/service'
+import { feedbackType } from '@/types/feedback'
 import { Button } from '@/components/button'
 import { LuInfo, LuPen, LuPlusCircle, LuTrash } from 'react-icons/lu'
-import { DialogUpdateService } from './dialog-update-service'
-import { DialogServiceDelete } from './dialog-delete-service'
-import { DialogInformationService } from './dialog-information-service'
+import { DialogUpdateFeedback } from './dialog-update-feedback'
+import { DialogDeleteFeedback } from './dialog-delete-feedback'
+import { DialogInformationFeedback } from './dialog-information-feedback'
 import { PerPage } from '@/components/dashboard/per_page'
-import { DialogCreateService } from './dialog-create-service'
-import { FilterServices } from './filter-services'
+import { DialogCreateFeedback } from './dialog-create-feedback'
+import { FilterFeedbacks } from './filter-feedbacks'
 
-interface ListServicesProps {
+interface ListFeedbacksProps {
   page?: number
   perPage?: number
-  title?: string
-  content?: string
+  username?: string
 }
 
-export default async function ListServices({
+export default async function ListFeedbacks({
   page,
   perPage,
-  title,
-  content,
-}: ListServicesProps) {
-  const { response } = await api<paginationResponseType<serviceType[]>>(
+  username,
+}: ListFeedbacksProps) {
+  const { response } = await api<paginationResponseType<feedbackType[]>>(
     'GET',
-    '/services',
+    '/feedbacks',
     {
       params: {
         page,
         per_page: perPage,
-        title,
-        content,
+        username,
       },
     },
   )
@@ -51,67 +48,79 @@ export default async function ListServices({
   if (!response) {
     return (
       <DashboardContainer className="text-destructive">
-        Não foi possível obter os serviços.
+        Não foi possível obter os feedbacks.
       </DashboardContainer>
     )
   }
 
-  const services: serviceType[] = response?.data
+  const feedbacks: feedbackType[] = response.data
 
   return (
     <>
       <DashboardContainer className="flex h-min justify-between space-x-0 gap-y-2.5 max-sm:flex-col">
-        
-        <DialogCreateService>
+        <FilterFeedbacks username={username} />
+
+        <DialogCreateFeedback>
           <Button size="sm">
             <LuPlusCircle />
-            Novo serviço
+            Novo feedback
           </Button>
-        </DialogCreateService>
+        </DialogCreateFeedback>
       </DashboardContainer>
+
       <DashboardContainer>
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Imagem</TableHead>
-              <TableHead>Título</TableHead>
+              <TableHead>Nome</TableHead>
+              <TableHead>Feedback</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
+
           <TableBody>
-            {services?.map((service: serviceType) => (
-              <TableRow key={service.id}>
+            {feedbacks?.map((feedback: feedbackType) => (
+              <TableRow key={feedback.id}>
                 <TableCell>
-                  <TabbleCellImage src={service.image} />
+                  <TabbleCellImage src={feedback.image} />
                 </TableCell>
 
-                <TableCell>{service.title}</TableCell>
+                <TableCell>{feedback.username}</TableCell>
+
+                <TableCell className="max-w-[400px] truncate">
+                  {feedback.content}
+                </TableCell>
 
                 <TableCell className="flex justify-end gap-2">
-                  <DialogInformationService id={service.id}>
+                  <DialogInformationFeedback id={feedback.id as string}>
                     <Button variant="default-inverse" size="icon">
                       <LuInfo />
                     </Button>
-                  </DialogInformationService>
-                  <DialogUpdateService id={service.id}>
+                  </DialogInformationFeedback>
+
+                  <DialogUpdateFeedback id={feedback.id as string}>
                     <Button variant="secondary-inverse" size="icon">
                       <LuPen />
                     </Button>
-                  </DialogUpdateService>
-                  <DialogServiceDelete id={service.id}>
+                  </DialogUpdateFeedback>
+
+                  <DialogDeleteFeedback id={feedback.id as string}>
                     <Button variant="destructive-inverse" size="icon">
                       <LuTrash />
                     </Button>
-                  </DialogServiceDelete>
+                  </DialogDeleteFeedback>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
-          {!services?.length && (
-            <TableCaption> Nenhum serviço encontrado.</TableCaption>
+
+          {!feedbacks.length && (
+            <TableCaption>Nenhum feedback encontrado.</TableCaption>
           )}
         </Table>
       </DashboardContainer>
+
       <DashboardContainer className="flex justify-between space-x-0 gap-y-2.5 max-sm:flex-col max-sm:items-center">
         <PerPage total={response.total} />
         <Pagination lastPage={response.last_page} />
