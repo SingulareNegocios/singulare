@@ -11,7 +11,7 @@ import {
   SidebarHeaderLogo,
   UserDropdown,
 } from '@/components/dashboard/sidebar'
-import { LuHome, LuLogOut, LuMessageCircle, LuMail, LuUsers} from 'react-icons/lu'
+import { LuHome, LuLogOut, LuMessageCircle, LuMail, LuUsers, LuContact } from 'react-icons/lu'
 import { DropdownMenuItem } from '@/components/dropdown-menu'
 import { signOut, useSession } from 'next-auth/react'
 import logo from '@/assets/img/logo.jpeg'
@@ -46,6 +46,10 @@ export function SidebarMain() {
         <SidebarNavLink href="/admin/feedbacks">
            <LuMessageCircle />
            <SidebarNavLinkLabel>Feedbacks</SidebarNavLinkLabel>
+        </SidebarNavLink>
+         <SidebarNavLink href="/admin/informacoesdaempresa">
+          <LuContact  />
+          <SidebarNavLinkLabel>Informações da empresa</SidebarNavLinkLabel>
         </SidebarNavLink>
       </SidebarNav>
       <SidebarFooter>
