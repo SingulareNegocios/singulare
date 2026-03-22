@@ -12,36 +12,34 @@ import {
 } from '@/components/dashboard/table'
 import { api } from '@/services/api'
 import { paginationResponseType } from '@/types/pagination-response'
-import { myhistoryType } from '@/types/myhistory'
+import { linkWppType } from '@/types/linkWpp'
 import { Button } from '@/components/button'
-import { LuInfo, LuPen, LuPlusCircle } from 'react-icons/lu'
-import { DialogUpdateMyHistory } from './dialog-update-my-history'
-import { DialogInformationMyHistory } from './dialog-information-my-history'
+import { LuInfo, LuPen, LuPlusCircle, LuTrash } from 'react-icons/lu'
+import { DialogUpdateLinkWpp } from './dialog-update-linkWpp'
+import { DialogInformationLinkWpp } from './dialog-information-linkWpp'
 import { PerPage } from '@/components/dashboard/per_page'
-import { FilterMyHistories } from './filter-my-histories'
+import { DialogCreateLinkWpp } from './dialog-create-linkWpp'
+import { FilterLinkWpp } from './filter-linkWpp'
 
-interface ListMyHistoriesProps {
+interface ListLinkWppProps {
   page?: number
   perPage?: number
-  text?: string
-  mission?: string
+  link?: string
 }
 
-export default async function ListMyHistories({
+export default async function ListLinkWpp({
   page,
   perPage,
-  text,
-  mission,
-}: ListMyHistoriesProps) {
-  const { response } = await api<paginationResponseType<myhistoryType[]>>(
+  link,
+}: ListLinkWppProps) {
+  const { response } = await api<paginationResponseType<linkWppType[]>>(
     'GET',
-    '/my-histories',
+    '/link-wpp',
     {
       params: {
         page,
         per_page: perPage,
-        text,
-        mission,
+        link,
       },
     },
   )
@@ -49,51 +47,47 @@ export default async function ListMyHistories({
   if (!response) {
     return (
       <DashboardContainer className="text-destructive">
-        Não foi possível obter as histórias.
+        Não foi possível obter os links.
       </DashboardContainer>
     )
   }
 
-  const myhistories: myhistoryType[] = response?.data
+  const links: linkWppType[] = response?.data
 
   return (
     <>
-     
+    
       <DashboardContainer>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Imagem</TableHead>
-              <TableHead>Texto</TableHead>
+              <TableHead>Link</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {myhistories?.map((myhistory: myhistoryType) => (
-              <TableRow key={myhistory.id}>
-                <TableCell>
-                  <TabbleCellImage src={myhistory.image} />
-                </TableCell>
+            {links?.map((link: linkWppType) => (
+              <TableRow key={link.id}>
 
-                <TableCell>{myhistory.text}</TableCell>
+                <TableCell>{link.link}</TableCell>
 
                 <TableCell className="flex justify-end gap-2">
-                  <DialogInformationMyHistory id={myhistory.id}>
+                  <DialogInformationLinkWpp id={link.id}>
                     <Button variant="default-inverse" size="icon">
                       <LuInfo />
                     </Button>
-                  </DialogInformationMyHistory>
-                  <DialogUpdateMyHistory id={myhistory.id}>
+                  </DialogInformationLinkWpp>
+                  <DialogUpdateLinkWpp id={link.id}>
                     <Button variant="secondary-inverse" size="icon">
                       <LuPen />
                     </Button>
-                  </DialogUpdateMyHistory>
+                  </DialogUpdateLinkWpp>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
-          {!myhistories?.length && (
-            <TableCaption> Nenhuma história encontrada.</TableCaption>
+          {!links?.length && (
+            <TableCaption> Nenhum link encontrado.</TableCaption>
           )}
         </Table>
       </DashboardContainer>

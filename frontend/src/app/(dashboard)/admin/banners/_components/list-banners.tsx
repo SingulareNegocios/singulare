@@ -12,36 +12,34 @@ import {
 } from '@/components/dashboard/table'
 import { api } from '@/services/api'
 import { paginationResponseType } from '@/types/pagination-response'
-import { myhistoryType } from '@/types/myhistory'
+import { bannerType } from '@/types/banner'
 import { Button } from '@/components/button'
-import { LuInfo, LuPen, LuPlusCircle } from 'react-icons/lu'
-import { DialogUpdateMyHistory } from './dialog-update-my-history'
-import { DialogInformationMyHistory } from './dialog-information-my-history'
+import { LuInfo, LuPen, LuPlusCircle, LuTrash } from 'react-icons/lu'
+import { DialogUpdateBanner } from './dialog-update-banner'
+import { DialogInformationBanner } from './dialog-information-banner'
 import { PerPage } from '@/components/dashboard/per_page'
-import { FilterMyHistories } from './filter-my-histories'
+import { DialogCreateBanner } from './dialog-create-banner'
+import { FilterBanners } from './filter-banners'
 
-interface ListMyHistoriesProps {
+interface ListBannersProps {
   page?: number
   perPage?: number
   text?: string
-  mission?: string
 }
 
-export default async function ListMyHistories({
+export default async function ListBanners({
   page,
   perPage,
   text,
-  mission,
-}: ListMyHistoriesProps) {
-  const { response } = await api<paginationResponseType<myhistoryType[]>>(
+}: ListBannersProps) {
+  const { response } = await api<paginationResponseType<bannerType[]>>(
     'GET',
-    '/my-histories',
+    '/banners',
     {
       params: {
         page,
         per_page: perPage,
         text,
-        mission,
       },
     },
   )
@@ -49,12 +47,12 @@ export default async function ListMyHistories({
   if (!response) {
     return (
       <DashboardContainer className="text-destructive">
-        Não foi possível obter as histórias.
+        Não foi possível obter os banners.
       </DashboardContainer>
     )
   }
 
-  const myhistories: myhistoryType[] = response?.data
+  const banners: bannerType[] = response?.data
 
   return (
     <>
@@ -69,31 +67,31 @@ export default async function ListMyHistories({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {myhistories?.map((myhistory: myhistoryType) => (
-              <TableRow key={myhistory.id}>
+            {banners?.map((banner: bannerType) => (
+              <TableRow key={banner.id}>
                 <TableCell>
-                  <TabbleCellImage src={myhistory.image} />
+                  <TabbleCellImage src={banner.image} />
                 </TableCell>
 
-                <TableCell>{myhistory.text}</TableCell>
+                <TableCell>{banner.text}</TableCell>
 
                 <TableCell className="flex justify-end gap-2">
-                  <DialogInformationMyHistory id={myhistory.id}>
+                  <DialogInformationBanner id={banner.id}>
                     <Button variant="default-inverse" size="icon">
                       <LuInfo />
                     </Button>
-                  </DialogInformationMyHistory>
-                  <DialogUpdateMyHistory id={myhistory.id}>
+                  </DialogInformationBanner>
+                  <DialogUpdateBanner id={banner.id}>
                     <Button variant="secondary-inverse" size="icon">
                       <LuPen />
                     </Button>
-                  </DialogUpdateMyHistory>
+                  </DialogUpdateBanner>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
-          {!myhistories?.length && (
-            <TableCaption> Nenhuma história encontrada.</TableCaption>
+          {!banners?.length && (
+            <TableCaption> Nenhum banner encontrado.</TableCaption>
           )}
         </Table>
       </DashboardContainer>
