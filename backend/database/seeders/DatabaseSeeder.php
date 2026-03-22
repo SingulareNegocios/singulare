@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\LinkWpp;
 use App\Models\Banner;
 use App\Models\MyHistory;
+use App\Models\AboutUs;
 use App\Models\User;
 use App\Models\CompanyInformation;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
         LinkWpp::factory(1)->create();
         Banner::factory(1)->create();
         MyHistory::factory(1)->create();
+        AboutUs::factory(1)->create();
 
         $user = User::factory()->create([
             'name' => 'Test User',

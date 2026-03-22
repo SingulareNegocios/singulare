@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LinkWppController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\MyHistoryController;
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
 use App\Models\MyHistory;
 use Illuminate\Http\Request;
@@ -49,6 +50,7 @@ Route::get('/faq', [FaqController::class, 'index']);
 
 Route::get('/link-wpp', [LinkWppController::class, 'index']);
 Route::get('/link-wpp/{id}', [LinkWppController::class, 'show']);
+Route::apiResource('/about-us', AboutUsController::class)->except('index', 'show');
 
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
@@ -58,5 +60,8 @@ Route::get('/banners/{id}', [BannerController::class, 'show'] );
 
 Route::get('/my-histories', [MyHistoryController::class, 'index'] );
 Route::get('/my-histories/{id}', [MyHistoryController::class, 'show'] );
+
+Route::get('/about-us', [AboutUsController::class, 'index'] );
+Route::get('/about-us/{id}', [AboutUsController::class, 'show'] );
 
 require __DIR__.'/auth.php';
