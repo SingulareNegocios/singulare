@@ -3,7 +3,7 @@ export type myhistoryType = {
     text: string
     mission: string
     vision: string
-    values: string
+    value: string
     image: string
     created_at: Date
     updated_at: Date

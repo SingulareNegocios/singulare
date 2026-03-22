@@ -75,16 +75,16 @@ export default function FormFieldsMyHistory ({
           />
         </FormField>
         <FormField>
-          <Label htmlFor="values">Insira o valor da história</Label>
+          <Label htmlFor="value">Insira o valor da história</Label>
           <Input
-            name="values"
-            id="values"
+            name="value"
+            id="value"
             type="values"
             placeholder="Insira o valor da história"
-            defaultValue={myhistory?.values}
+            defaultValue={myhistory?.value}
             disabled={pending}
             readOnly={readOnly}
-            error={error?.errors?.values}
+            error={error?.errors?.value}
           />
         </FormField>
         <FormField>
