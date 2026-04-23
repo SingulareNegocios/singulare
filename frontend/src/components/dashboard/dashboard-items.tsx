@@ -49,7 +49,7 @@ export function DashboardMain({
   ...props
 }: ComponentProps<'main'>) {
   return (
-    <main className={cn('p-6 space-y-6', className)} {...props}>
+    <main className={cn('p-6 space-y-6 ', className)} {...props}>
       {children}
     </main>
   )
