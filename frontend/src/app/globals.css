@@ -34,6 +34,13 @@
         --destructive-foreground: 5 80% 94%;
 
         --radius: 0.25rem;
+
+        --cinza: 40 2.38% 49.41%;
+        --cloud-dancer: 42.86 18.92% 92.75%;
+        --branco-gelo: 44 18.52% 84.12%;
+        --azul-neon: 228 100% 50%;
+        --chumbo: 214.29 3.41% 40.2%;
+        --cinza-carvao: 210 10.81% 14.51%;
     }
 }
 
@@ -42,7 +49,7 @@
         @apply border-border;
     }
 
-    body {
+    /* body {
         @apply bg-background text-foreground;
-    }
+    } */
 }

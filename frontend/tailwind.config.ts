@@ -57,6 +57,24 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        cinza: {
+          DEFAULT: 'hsl(var(--cinza))'
+        },
+        cloudDancer: {
+          DEFAULT: 'hsl(var(--cloud-dancer))'
+        },
+        brancoGelo: {
+          DEFAULT: 'hsl(var(--branco-gelo))'
+        },
+        azulNeon: {
+          DEFAULT: 'hsl(var(--azul-neon))'
+        },
+        chumbo: {
+          DEFAULT: 'hsl(var(--chumbo))'
+        },
+        cinzaCarvao: {
+          DEFAULT: 'hsl(var(--cinza-carvao))'
+        }
       },
       borderRadius: {
         sm: 'calc(var(--radius) - 2px)',
