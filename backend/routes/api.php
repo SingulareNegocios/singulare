@@ -45,6 +45,7 @@ Route::apiResource('/faq',FaqController::class)->except('index');
  Route::get('/feedbacks', [FeedbackController::class,'index']);
 
 Route::get('/faq', [FaqController::class, 'index']);
+Route::get('/faq-all', [FaqController::class, 'getAll']);
 
 
   

@@ -31,7 +31,7 @@ export async function Footer(){
 
 
     return(
-        <div className="flex justify-around items-center bg-cinzaCarvao text-white py-8 px-16 ">
+        <div className="flex justify-around items-center bg-cinzaCarvao text-white py-8 px-16 border-[1px] border-x-0 border-cloudDancer">
 <Image src='/logoAdapti.png' alt='Logo Empresa' width={150} height={150}/>
 
 <div className="flex flex-col items-center gap-4 max-w-[33%]">

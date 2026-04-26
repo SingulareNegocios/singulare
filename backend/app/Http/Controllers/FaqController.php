@@ -24,6 +24,13 @@ private Faq $faq;
         return response()->json($faq, Response::HTTP_OK);
     }
 
+    public function getAll()
+    {
+        $faq = $this->faq->all('question', 'answer');
+
+        return response()->json($faq, Response::HTTP_OK);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
