@@ -13,22 +13,9 @@ class Feedback extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        'username',
-        'image',
+        'name',
         'content',
+        'role',
     ];
 
-    protected static function booted()
-    {
-        self::deleted(function (Feedback $feedback) {
-            try {
-                if ($feedback->image) {
-                    $image_name = explode('feedback/', $feedback->image);
-                    Storage::disk('public')->delete('feedback/' . $image_name[1]);
-                }
-            } catch (Throwable) {
-                // evita quebra caso dê erro ao deletar imagem
-            }
-        });
-    }
 }
