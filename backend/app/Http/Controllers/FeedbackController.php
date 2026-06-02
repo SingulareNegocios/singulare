@@ -7,9 +7,7 @@ use App\Http\Requests\UpdateFeedbackRequest;
 use App\Models\Feedback;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 class FeedbackController extends Controller
 {
@@ -19,8 +17,8 @@ class FeedbackController extends Controller
     public function index(Request $request): JsonResponse
     {
         $feedbacks = Feedback::query()
-            ->when($request->has('username'), fn ($query) =>
-                $query->where('username', 'like', "%{$request['username']}%")
+            ->when($request->has('name'), fn ($query) =>
+                $query->where('name', 'like', "%{$request['name']}%")
             )
             ->orderBy('created_at', 'desc')
             ->paginate((int) $request->per_page);
@@ -33,14 +31,7 @@ class FeedbackController extends Controller
      */
     public function store(StoreFeedbackRequest $request): JsonResponse
     {
-        $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('feedback', 'public');
-            $data['image'] = url('storage/' . $path);
-        }
-
-        $feedback = Feedback::create($data);
+        $feedback = Feedback::create($request->validated());
 
         return response()->json($feedback, Response::HTTP_CREATED);
     }
@@ -58,23 +49,8 @@ class FeedbackController extends Controller
      */
     public function update(UpdateFeedbackRequest $request, Feedback $feedback): JsonResponse
     {
-        $data = $request->validated();
-
-        if ($request->hasFile('image')) {
-            try {
-                if ($feedback->image) {
-                    $image_name = explode('feedback/', $feedback->image);
-                    Storage::disk('public')->delete('feedback/' . $image_name[1]);
-                }
-            } catch (Throwable) {
-                // evita quebra caso dê erro ao deletar
-            } finally {
-                $path = $request->file('image')->store('feedback', 'public');
-                $data['image'] = url('storage/' . $path);
-            }
-        }
-
-        $feedback->update($data);
+        
+        $feedback->update($request->validated());
 
         return response()->json($feedback, Response::HTTP_OK);
     }
@@ -84,15 +60,6 @@ class FeedbackController extends Controller
      */
     public function destroy(Feedback $feedback): JsonResponse
     {
-        try {
-            if ($feedback->image) {
-                $image_name = explode('feedback/', $feedback->image);
-                Storage::disk('public')->delete('feedback/' . $image_name[1]);
-            }
-        } catch (Throwable) {
-            // ignora erro ao deletar imagem
-        }
-
         $feedback->delete();
 
         return response()->json([], Response::HTTP_NO_CONTENT);

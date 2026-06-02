@@ -14,25 +14,23 @@ class StoreFeedbackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', 'string', 'max:255'],
-            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'name' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string', 'max:255'],
+            'role' => ['required', 'string', 'max:255'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'username.required' => 'O nome é obrigatório.',
-            'username.max' => 'O nome deve ter no máximo 255 caracteres.',
-
-            'image.required' => 'A imagem é obrigatória.',
-            'image.image' => 'O arquivo deve ser uma imagem válida.',
-            'image.mimes' => 'A imagem deve ser do tipo: jpg, jpeg, png ou webp.',
-            'image.max' => 'A imagem deve ter no máximo 2MB.',
+            'name.required' => 'O nome é obrigatório.',
+            'name.max' => 'O nome deve ter no máximo 255 caracteres.',
 
             'content.required' => 'O feedback é obrigatório.',
             'content.max' => 'O feedback deve ter no máximo 255 caracteres.',
+
+            'role.required' => 'O cargo é obrigatório.',
+            'role.max' => 'O cargo deve ter no máximo 255 caracteres.',
         ];
     }
 }
