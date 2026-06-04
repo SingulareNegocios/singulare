@@ -10,16 +10,16 @@ export function WaterMark() {
           </p>
 
           <div className="flex gap-4">
-            <a href="">
+            <a href="https://www.instagram.com/adaptiempresajr/" target="_blank" >
               <Image
-                src="/facebook.svg"
-                alt="facebook-icon"
+                src="/instagram.svg"
+                alt="instagram-icon"
                 width={24}
                 height={24}
               />
             </a>
 
-            <a href="">
+            <a href="https://www.linkedin.com/company/adaptiempresajr/" target="_blank" >
               <Image
                 src="/linkedin.svg"
                 alt="linkedin-icon"
