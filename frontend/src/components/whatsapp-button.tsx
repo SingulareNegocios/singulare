@@ -10,7 +10,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 const wppButtonVariants = cva('', {
   variants: {
     size: {
-      sm: 'w-[35px] h-[35px]',
+      sm: 'w-[25px] h-[25px]',
       default: 'w-[40px] h-[40px]',
       lg: 'w-[45px] h-[45px]',
     },
@@ -38,18 +38,17 @@ const WppButton = ({
 }: WppButtonProps) => {
   if (typeof cellphone !== 'string') return null
 
-  const WhatsappUrl = whatsAppUrlReplace(cellphone)
+  const WhatsappUrl = cellphone
 
   const iconSize = {
-    sm: 35,
+    sm: 25,
     default: 40,
     lg: 45,
   }[size ?? 'default']
 
   const fixedClasses =
     'fixed z-50 bottom-20 right-28 max-lg:right-12 max-lg:bottom-12'
-
-  return (
+    return (
     <Link
       target="_blank"
       href={WhatsappUrl}

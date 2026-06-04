@@ -60,6 +60,10 @@
             transform: translateY(-1rem);
         }
     }
+
+    .swiper-container .swiper-wrapper{
+        transition-timing-function: linear !important;
+    }
 }
 
 

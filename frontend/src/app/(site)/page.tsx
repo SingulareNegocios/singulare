@@ -9,20 +9,36 @@ import { Banner } from "./_components/banner"
 import WppButton from "@/components/whatsapp-button"
 import { FeedbacksSection } from "./_components/feedbacks"
 
+import Investimento from "./_components/investimento"
+import { linkWppType } from '@/types/linkWpp';
+import { useEffect, useState } from "react"
+import { api } from "@/services/api"
+import { useToast } from "@/components/use-toast"
+import { paginationResponseType } from "@/types/pagination-response"
+
 export default async function Home() {
+  const { response } =
+    await api<paginationResponseType<linkWppType[]>>(
+      'GET',
+      '/link-wpp',
+    );
+
+  const linkWpp = response?.data[0]?.link;
+
   return (
-  <div className="min-h-screen w-full flex flex-col bg-cloudDancer">
+  <div className="min-h-screen w-full flex flex-col bg-white">
     <Navbar/>
     <Banner/>
-    <AboutUs />
+    <AboutUs /> 
 
     <FeedbacksSection />
     <FAQ/>
     
-    <ContactForm />
+    <ContactForm />  
+    <Investimento />
     <Footer/>
     <WaterMark/>
-    {/* <WppButton cellphone="27999999999" color="#4DADB0" /> */}
+    <WppButton cellphone={linkWpp} size="sm" color="#25d366" className="bg-black rounded-full sm:p-4 p-3" /> 
   </div>
   )
   
