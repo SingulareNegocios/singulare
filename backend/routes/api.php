@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\CompanyInformationController;
 use App\Http\Controllers\FacilitatorController;
 use App\Http\Controllers\InscriptionsController;
+use App\Http\Controllers\MoreInformationController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', function (Request $request) {
@@ -29,6 +30,7 @@ Route::middleware(['auth:sanctum', 'can:admin'])->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/banners', BannerController::class)->except('index', 'show');
     Route::put('/companyinformation/{id}', [CompanyInformationController::class, 'update']);
+    Route::put('/moreinformation/{id}', [MoreInformationController::class, 'update']);
     Route::apiResource('/feedbacks', FeedbackController::class)->except('index');
     Route::apiResource('/faq', FaqController::class)->except('index');
     Route::apiResource('/inscriptions', InscriptionsController::class);
@@ -48,6 +50,8 @@ Route::get('/faq', [FaqController::class, 'index']);
 Route::get('/faq-all', [FaqController::class, 'getAll']);
 
 Route::get('/companyinformation', [CompanyInformationController::class, 'index']);
+
+Route::get('/moreinformation', [MoreInformationController::class, 'index']);
 
 Route::get('/link-wpp', [LinkWppController::class, 'index']);
 Route::get('/link-wpp/{id}', [LinkWppController::class, 'show']);

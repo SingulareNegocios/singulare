@@ -9,6 +9,7 @@ use App\Models\AboutUs;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\CompanyInformation;
+use App\Models\MoreInformation;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -33,5 +34,6 @@ class DatabaseSeeder extends Seeder
         $user->assignPermission('admin');
 
         CompanyInformation::factory(1)->create();
+        MoreInformation::factory(1)->create();
     }
 }
