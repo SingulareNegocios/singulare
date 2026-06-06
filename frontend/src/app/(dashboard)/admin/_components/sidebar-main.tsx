@@ -41,9 +41,9 @@ export function SidebarMain() {
           <LuFileImage />
           <SidebarNavLinkLabel>Banner</SidebarNavLinkLabel>
         </SidebarNavLink>
-        <SidebarNavLink href="/admin/contatos">
+        <SidebarNavLink href="/admin/inscricoes">
           <LuMail />
-          <SidebarNavLinkLabel>Contatos</SidebarNavLinkLabel>
+          <SidebarNavLinkLabel>Inscrições</SidebarNavLinkLabel>
         </SidebarNavLink>
         <SidebarNavLink href="/admin/faq">
           <LuMessageCircle />
