@@ -15,6 +15,7 @@ use App\Http\Controllers\CompanyInformationController;
 use App\Http\Controllers\FacilitatorController;
 use App\Http\Controllers\InscriptionsController;
 use App\Http\Controllers\MoreInformationController;
+use App\Http\Controllers\PriceController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/profile', function (Request $request) {
@@ -27,6 +28,7 @@ Route::middleware(['auth:sanctum', 'can:admin'])->group(function () {
     Route::apiResource('/contents', ContentController::class)->except('index', 'show');
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/banners', BannerController::class)->except('index', 'show');
+    Route::apiResource('/prices', PriceController::class)->except('index', 'show');
     Route::put('/companyinformation/{id}', [CompanyInformationController::class, 'update']);
     Route::put('/moreinformation/{id}', [MoreInformationController::class, 'update']);
     Route::apiResource('/feedbacks', FeedbackController::class)->except('index');
@@ -56,6 +58,9 @@ Route::apiResource('/courses', CourseController::class)->except('index', 'show')
 
 Route::get('/banners', [BannerController::class, 'index']);
 Route::get('/banners/{id}', [BannerController::class, 'show']);
+
+Route::get('/prices', [PriceController::class, 'index']);
+Route::get('/prices/{id}', [PriceController::class, 'show']);
 
 Route::get('/courses', [CourseController::class, 'index']);
 Route::get('/courses/{id}', [CourseController::class, 'show']);
