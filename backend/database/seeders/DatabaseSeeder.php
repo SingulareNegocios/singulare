@@ -5,10 +5,12 @@ namespace Database\Seeders;
 use App\Models\LinkWpp;
 use App\Models\Banner;
 use App\Models\MyHistory;
-use App\Models\AboutUs;
-use App\Models\Service;
+use App\Models\Course;
+use App\Models\Content;
 use App\Models\User;
 use App\Models\CompanyInformation;
+use App\Models\MoreInformation;
+use App\Models\Price;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -22,9 +24,10 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         LinkWpp::factory(1)->create();
         Banner::factory(1)->create();
+        Price::factory(1)->create();
         
-        AboutUs::factory(1)->create();
-        Service::factory(3)->create();
+        Course::factory(1)->create();
+        Content::factory(3)->create();
 
         $user = User::factory()->create([
             'name' => 'Test User',
@@ -33,5 +36,6 @@ class DatabaseSeeder extends Seeder
         $user->assignPermission('admin');
 
         CompanyInformation::factory(1)->create();
+        MoreInformation::factory(1)->create();
     }
 }
