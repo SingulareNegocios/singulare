@@ -1,24 +1,24 @@
 'use client'
 
 import { api } from "@/services/api";
-import { aboutUsType } from "@/types/aboutUs";
+import { courseType } from "@/types/course";
 import { paginationResponseType } from "@/types/pagination-response";
 import Image from "next/image";
 import { useToast } from "@/components/use-toast";
 import { useEffect, useState } from "react";
 import { text } from "stream/consumers";
 
-export function AboutUs() {
+export function Course() {
   const { toast } = useToast();
 
-  const [aboutUs, setAboutUs] = useState<aboutUsType | null>(null);
+  const [course, setCourse] = useState<courseType | null>(null);
 
   useEffect(() => {
     async function loadData() {
       const { response } =
-        await api<paginationResponseType<aboutUsType[]>>(
+        await api<paginationResponseType<courseType[]>>(
           'GET',
-          '/about-us',
+          '/courses',
         );
         
 
@@ -32,7 +32,7 @@ export function AboutUs() {
        const data = response.data[0];
 
 
-        setAboutUs(data);
+        setCourse(data);
     
     }
 
@@ -40,7 +40,7 @@ export function AboutUs() {
   }, []);
 
 
-  if (!aboutUs){
+  if (!course){
 return
   }
 
@@ -64,7 +64,7 @@ return
           <div className="absolute -left-6 -top-4 w-full h-full bg-cinzaCarvao rounded-2xl" />
 
           <Image
-            src={aboutUs.image}
+            src={course.primary_image}
             alt="Equipe"
             width={600}
             height={400}
@@ -76,11 +76,15 @@ return
 
           <div className="flex flex-col justify-center flex-1">
             <h1 className="text-2xl font-semibold mb-4">
-              SOBRE NÓS
+              SOBRE O CURSO
             </h1>
 
             <p className="text-md text-zinc-700 leading-relaxed">
-              {aboutUs.text}
+              {course.primary_text}
+            </p>
+
+             <p className="text-md text-zinc-700 leading-relaxed">
+              {course.secondary_text}
             </p>
           </div>
 
