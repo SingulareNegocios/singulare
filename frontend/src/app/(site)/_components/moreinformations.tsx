@@ -39,29 +39,29 @@ export function MoreInformations() {
           Mais informações
         </h2>
 
-        <div className="flex flex-col gap-4 text-center md:text-left">
-          <p className="text-base md:text-xl lg:text-2xl font-bold text-gray-900">
+        <div className="flex flex-col gap-4 md:gap-8 md:text-left text-justify font-extrabold">
+          <p className="text-base md:text-xl lg:text-2xl text-gray-900">
             {info.numero_turma}ª Turma:
           </p>
 
           <p className="text-base md:text-xl lg:text-2xl text-gray-900">
-            <span className="font-bold">Dias:</span>{' '}
-            <span className="text-[#167174] font-medium">{info.dias}</span>
+            <span className="">Dias:</span>{' '}
+            <span className="text-[#167174]">{info.dias}</span>
           </p>
 
           <p className="text-base md:text-xl lg:text-2xl text-gray-900">
-            <span className="font-bold">Inicio:</span>{' '}
-            <span className="text-[#167174] font-medium">{info.inicio}</span>
+            <span className="">Inicio:</span>{' '}
+            <span className="text-[#167174]">{info.inicio}</span>
           </p>
 
           <p className="text-base md:text-xl lg:text-2xl text-gray-900">
-            <span className="font-bold">Encerramento:</span>{' '}
-            <span className="text-[#167174] font-medium">{info.encerramento}</span>
+            <span className="">Encerramento:</span>{' '}
+            <span className="text-[#167174]">{info.encerramento}</span>
           </p>
 
           <p className="text-base md:text-xl lg:text-2xl text-gray-900">
-            <span className="font-bold">Local:</span>{' '}
-            <span className="text-[#167174] font-medium">{info.local}</span>
+            <span className="">Local:</span>{' '}
+            <span className="text-[#167174]">{info.local}</span>
           </p>
         </div>
       </div>
