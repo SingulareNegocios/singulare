@@ -16,6 +16,7 @@ import { api } from "@/services/api"
 import { useToast } from "@/components/use-toast"
 import { paginationResponseType } from "@/types/pagination-response"
 import { ContentsSection } from "./_components/contents"
+import { MoreInformations } from "./_components/moreinformations"
 
 export default async function Home() {
   const { response } =
@@ -31,6 +32,7 @@ export default async function Home() {
     <Navbar/>
     <Banner/>
     <Course /> 
+    <MoreInformations />
     <ContentsSection />
     <FeedbacksSection />
     <section id="faq"> 
