@@ -1,4 +1,4 @@
-# Adapti Project Template
+# Landing Page Singulare
 ## Iniciando projeto
 Clone o projeto para sua máquina:
 ```bash
