@@ -16,6 +16,7 @@ import { api } from "@/services/api"
 import { useToast } from "@/components/use-toast"
 import { paginationResponseType } from "@/types/pagination-response"
 import { ContentsSection } from "./_components/contents"
+import { Facilitators } from "./_components/facilitator"
 
 export default async function Home() {
   const { response } =
@@ -30,8 +31,13 @@ export default async function Home() {
   <div className="min-h-screen w-full flex flex-col bg-white">
     <Navbar/>
     <Banner/>
-    <Course /> 
-    <ContentsSection />
+    <section id="sobre">
+      <Course /> 
+    </section>
+    <section id="conteudo">
+      <ContentsSection />
+    </section>
+    <Facilitators></Facilitators>
     <FeedbacksSection />
     <section id="faq"> 
       <FAQ/>
