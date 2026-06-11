@@ -32,7 +32,7 @@ export function Course() {
   if (!course) return null;
 
   return (
-    <div className="container mb-24 flex flex-col items-center md:items-start px-4">
+    <div className="container mb-24 flex flex-col items-center md:items-start px-4 lg:px-16 md:px-12">
       
       <h1 className="hidden md:block text-3xl font-bold text-left mb-10 md:mb-14 md:ml-10 lg:ml-24 lg:text-5xl">
         Sobre o Curso
