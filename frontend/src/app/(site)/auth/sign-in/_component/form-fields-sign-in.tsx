@@ -20,7 +20,7 @@ export function FormFieldsSignIn({ error }: FormFieldsSignIn) {
           type="email"
           name="email"
           placeholder="Insira seu e-mail"
-          defaultValue="test@example.com"
+          defaultValue=""
           disabled={pending}
           required
         />
@@ -33,7 +33,7 @@ export function FormFieldsSignIn({ error }: FormFieldsSignIn) {
           type="password"
           name="password"
           placeholder="Insira sua senha"
-          defaultValue="password"
+          defaultValue=""
           disabled={pending}
           required
         />
